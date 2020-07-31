@@ -1,8 +1,19 @@
 use config::{Config, ConfigError, Environment, File};
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Deserialize)]
 pub struct Settings {
+    auth: Auth,
+    publish: Publish,
+}
+
+#[derive(Deserialize)]
+pub struct Publish {
+    script_id: String,
+}
+
+#[derive(Deserialize)]
+pub struct Auth {
     token: String,
 }
 
