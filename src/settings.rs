@@ -10,6 +10,7 @@ pub struct Settings {
 #[derive(Deserialize)]
 pub struct Publish {
     pub script_id: String,
+    pub dir: String,
 }
 
 #[derive(Deserialize)]
