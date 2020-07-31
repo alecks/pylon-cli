@@ -10,7 +10,7 @@ pub struct Settings {
 #[derive(Deserialize)]
 pub struct Publish {
     pub script_id: String,
-    pub dir: String,
+    pub bundle: std::path::PathBuf,
 }
 
 #[derive(Deserialize)]
