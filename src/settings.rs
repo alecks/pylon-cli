@@ -3,18 +3,18 @@ use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct Settings {
-    auth: Auth,
-    publish: Publish,
+    pub auth: Auth,
+    pub publish: Publish,
 }
 
 #[derive(Deserialize)]
 pub struct Publish {
-    script_id: String,
+    pub script_id: String,
 }
 
 #[derive(Deserialize)]
 pub struct Auth {
-    token: String,
+    pub token: String,
 }
 
 impl Settings {
