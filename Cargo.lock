@@ -224,6 +224,7 @@ name = "pylon-cli"
 version = "0.1.0"
 dependencies = [
  "config",
+ "serde 1.0.114",
  "structopt",
 ]
 
