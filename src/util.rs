@@ -20,7 +20,7 @@ pub struct Publish {
 
 #[derive(Deserialize)]
 pub struct Project {
-    pub script_id: String,
+    pub deployment_id: String,
     pub token: String,
 }
 

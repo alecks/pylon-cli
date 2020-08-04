@@ -51,7 +51,7 @@ pub async fn handle() -> Result<(), Box<dyn std::error::Error>> {
             let res = reqwest::Client::new()
                 .post(&format!(
                     "{}/deployments/{}",
-                    API_ENDPOINT, cfg.project.script_id
+                    API_ENDPOINT, cfg.project.deployment_id
                 ))
                 .header("Authorization", cfg.project.token)
                 .json(&Publish {
