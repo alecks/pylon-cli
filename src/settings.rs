@@ -3,19 +3,19 @@ use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct Settings {
-    pub auth: Auth,
+    pub project: Project,
     pub publish: Publish,
 }
 
 #[derive(Deserialize)]
 pub struct Publish {
-    pub script_id: String,
     pub bundle: std::path::PathBuf,
     pub build_command: String,
 }
 
 #[derive(Deserialize)]
-pub struct Auth {
+pub struct Project {
+    pub script_id: String,
     pub token: String,
 }
 
