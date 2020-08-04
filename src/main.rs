@@ -186,6 +186,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             templated_file.write_all(include_bytes!("templates/Pylon.toml"))?;
             let mut templated_file = fs::File::create("rollup.config.js")?;
             templated_file.write_all(include_bytes!("templates/rollup.config.js"))?;
+            let mut templated_file = fs::File::create(".env")?;
+            templated_file.write_all(include_bytes!("templates/.env"))?;
 
             let mut package_file = fs::File::create("package.json")?;
             package_file.write_all(
