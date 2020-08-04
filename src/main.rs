@@ -1,4 +1,4 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
 use std::fs;
 use std::io::{prelude::*, BufReader, Read};
 use std::path::PathBuf;
@@ -33,7 +33,12 @@ enum Cli {
 const API_ENDPOINT: &str = "https://pylon.bot/api";
 const MAIN_FILE_PATH: &str = "main.ts";
 
-const TYPE_PACKAGES: &[&str] = &["@pylonbot/runtime", "@pylonbot/runtime-discord"];
+const DEFAULT_PACKAGES: &[&str] = &[
+    "@pylonbot/runtime",
+    "@pylonbot/runtime-discord",
+    "rollup",
+    "@rollup/plugin-typescript",
+];
 
 const SPINNER_TICK: u64 = 80;
 const SPINNER_STRINGS: &[&str] = &["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
@@ -78,8 +83,6 @@ impl Spinner {
 struct PackageFile {
     name: String,
     version: String,
-    #[serde(rename = "devDependencies")]
-    dev_dependencies: HashMap<String, String>,
 }
 
 #[tokio::main]
@@ -160,7 +163,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
         }
         Cli::Init { name } => {
-            let total = 3;
+            let total = 2;
             let mut current = 1;
             let sp = Spinner::new(
                 "Creating Pylon starter files",
@@ -177,32 +180,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let mut pylon_file = fs::File::create("Pylon.toml")?;
             pylon_file.write_all(include_bytes!("resources/Pylon.template.toml"))?;
 
-            sp.done();
-            current += 1;
-
-            let sp = Spinner::new(
-                "Creating NPM package",
-                "NPM package created",
-                current,
-                total,
-            );
-
-            let mut deps = HashMap::new();
-            for package in TYPE_PACKAGES {
-                let registry_entry =
-                    reqwest::get(&format!("https://registry.npmjs.org/{}", package))
-                        .await?
-                        .json::<response::RegistryEntry>()
-                        .await?;
-                deps.insert(registry_entry.name, registry_entry.dist_tags.latest);
-            }
-
             let mut package_file = fs::File::create("package.json")?;
             package_file.write_all(
                 &serde_json::to_vec(&PackageFile {
                     name,
                     version: "0.1.0".to_owned(),
-                    dev_dependencies: deps,
                 })
                 .unwrap(),
             )?;
@@ -215,7 +197,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 current,
                 total,
             );
-            Command::new("npm").arg("install").spawn()?.wait()?;
+            Command::new("npm")
+                .arg("install")
+                .arg("--save-dev")
+                .args(DEFAULT_PACKAGES)
+                .spawn()?
+                .wait()?;
             sp.done();
         }
     }
