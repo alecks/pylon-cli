@@ -58,4 +58,10 @@ pub mod response {
     pub struct Error {
         pub msg: String,
     }
+
+    #[derive(Deserialize)]
+    pub struct GuildAdd {
+        pub requires_guild_auth: bool,
+        pub redirect_url: String,
+    }
 }
