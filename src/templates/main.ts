@@ -9,14 +9,14 @@
 // On top of this, editing your script in the Pylon editor will overwite *all* changes behind the scenes. Be careful!
 
 const commands = new discord.command.CommandGroup({
-  defaultPrefix: "!",
-  mentionPrefix: true,
+    defaultPrefix: "!",
+    mentionPrefix: true,
 });
 
 commands.on(
-  "hi",
-  (ctx) => ({ member: ctx.guildMember() }),
-  async (msg, { member }) => {
-    msg.reply(`hi, ${member.user.getTag()}!`);
-  }
+    "hi",
+    (ctx) => ({ member: ctx.guildMember() }),
+    async (msg, { member }) => {
+        msg.reply(`hi, ${member.user.getTag()}!`);
+    },
 );

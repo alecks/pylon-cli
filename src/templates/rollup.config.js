@@ -1,12 +1,12 @@
 import typescript from "@rollup/plugin-typescript";
 
 export default {
-  input: "src/main.ts",
-  output: [
-    {
-      file: "dist/bundle.js",
-      format: "umd",
-    },
-  ],
-  plugins: [typescript({ lib: ["es6"] })],
+    input: "src/main.ts",
+    output: [
+        {
+            file: "dist/bundle.js",
+            format: "umd",
+        },
+    ],
+    plugins: [typescript({ lib: ["es6"] })],
 };
