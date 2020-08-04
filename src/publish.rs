@@ -1,3 +1,4 @@
+use serde::Deserialize;
 use std::collections::VecDeque;
 use std::fs;
 use std::io::{BufReader, Read};
@@ -5,13 +6,17 @@ use std::process::Command;
 
 use console::style;
 
-use crate::models::{
-    request::{File, Project, Publish, Script},
-    response,
-};
+use crate::models::request::{File, Project, Publish, Script};
 use crate::util::{Settings, Spinner};
 
 const API_ENDPOINT: &str = "https://pylon.bot/api";
+
+#[derive(Deserialize)]
+struct PublishResponse {
+    name: String,
+    revision: i64,
+    workbench_url: String,
+}
 
 pub async fn handle() -> Result<(), Box<dyn std::error::Error>> {
     let cfg = match Settings::new() {
@@ -74,7 +79,7 @@ pub async fn handle() -> Result<(), Box<dyn std::error::Error>> {
             } else {
                 sp.done();
 
-                let parsed = res.json::<response::Publish>().await?;
+                let parsed = res.json::<PublishResponse>().await?;
                 println!(
                     "{}",
                     style(&format!("Revision {} of {}", parsed.revision, parsed.name))
