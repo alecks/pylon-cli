@@ -39,7 +39,7 @@ impl Spinner {
                 .template(SPINNER_TEMPLATE),
         );
 
-        pb.set_prefix(&format!("[{}/{}]", 1, 1));
+        pb.set_prefix(&format!("[{}/{}]", current, total));
         pb.set_message(&format!("{}", style(committing).blue().bright().bold()));
 
         Self {
