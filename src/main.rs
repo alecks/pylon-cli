@@ -1,6 +1,8 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
+use std::fs;
+use std::io::Read;
+use std::path::PathBuf;
 use std::process::Command;
-use tokio;
 
 use console::style;
 use indicatif::{ProgressBar, ProgressStyle};
@@ -8,17 +10,25 @@ use structopt::StructOpt;
 
 mod settings;
 use settings::Settings;
+mod models;
+use models::{
+    request::{File, Project, Publish, Script},
+    response,
+};
 
 /// Community CLI tool for Pylon.bot. https://pylon.alex.lgbt
-#[derive(StructOpt, Debug)]
+#[derive(StructOpt)]
 #[structopt(name = "pylon")]
 enum Cli {
     /// Publishes the script. This requires `auth.token`, `publish.bundle` (or `-b <bundle>`) and `publish.script_id`.
     Publish {
         #[structopt(short, long, parse(from_os_str))]
-        bundle: Option<std::path::PathBuf>,
+        bundle: Option<PathBuf>,
     },
 }
+
+const API_ENDPOINT: &str = "https://pylon.bot/api";
+const MAIN_FILE_PATH: &str = "main.ts";
 
 const SPINNER_TICK: u64 = 80;
 const SPINNER_STRINGS: &[&str] = &["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
@@ -73,11 +83,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             let sp = Spinner::new("Running build command", "Built bundle", current, total);
 
-            if cfg.publish.build_command.len() == 0 {
-                sp.err("build_command cannot be empty")
+            if cfg.build.command.len() == 0 {
+                sp.err("build.command cannot be empty")
             }
 
-            let mut build_command: VecDeque<&str> = cfg.publish.build_command.split(" ").collect();
+            let mut build_command: VecDeque<&str> = cfg.build.command.split(" ").collect();
             let ecode = Command::new(build_command.pop_front().unwrap())
                 .args(build_command)
                 .spawn()?
@@ -92,11 +102,48 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let sp = Spinner::new("Publishing script", "Published script", current, total);
 
             let bundle = bundle.or(Some(cfg.publish.bundle)).unwrap();
-            reqwest::get("https://httpbin.org/ip")
-                .await?
-                .json::<HashMap<String, String>>()
-                .await?;
-            sp.done();
+            match fs::File::open(bundle) {
+                Ok(mut f) => {
+                    let mut content = String::new();
+                    f.read_to_string(&mut content)?;
+
+                    let res = reqwest::Client::new()
+                        .post(&format!(
+                            "{}/deployments/{}",
+                            API_ENDPOINT, cfg.project.script_id
+                        ))
+                        .header("Authorization", cfg.project.token)
+                        .json(&Publish {
+                            script: Script {
+                                contents: content,
+                                project: Project {
+                                    files: vec![File {
+                                        path: MAIN_FILE_PATH.to_owned(),
+                                        content: cfg.publish.main_content,
+                                    }],
+                                },
+                            },
+                        })
+                        .send()
+                        .await?;
+
+                    if !res.status().is_success() {
+                        let parsed = res.json::<response::Error>().await?;
+                        sp.err(&parsed.msg);
+                    } else {
+                        sp.done();
+
+                        let parsed = res.json::<response::Publish>().await?;
+                        println!(
+                            "{}",
+                            style(&format!("Revision {} of {}", parsed.revision, parsed.name))
+                                .green()
+                                .bright()
+                        );
+                    }
+                }
+                Err(e) => sp.err(&format!("{}", e)),
+            };
         }
     }
     Ok(())
