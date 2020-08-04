@@ -11,6 +11,7 @@ const DEFAULT_PACKAGES: &[&str] = &[
     "@pylonbot/runtime-discord",
     "rollup",
     "@rollup/plugin-typescript",
+    "typescript",
 ];
 
 #[derive(Serialize)]
