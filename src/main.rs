@@ -175,10 +175,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             fs::create_dir_all(&format!("{}/src", name))?;
             std::env::set_current_dir(&name)?;
 
-            let mut main_file = fs::File::create("src/main.ts")?;
-            main_file.write_all(include_bytes!("resources/main.template.ts"))?;
-            let mut pylon_file = fs::File::create("Pylon.toml")?;
-            pylon_file.write_all(include_bytes!("resources/Pylon.template.toml"))?;
+            // TODO: Write a macro for this
+            let mut templated_file = fs::File::create("src/main.ts")?;
+            templated_file.write_all(include_bytes!("templates/main.ts"))?;
+            let mut templated_file = fs::File::create("Pylon.toml")?;
+            templated_file.write_all(include_bytes!("templates/Pylon.toml"))?;
+            let mut templated_file = fs::File::create("rollup.config.js")?;
+            templated_file.write_all(include_bytes!("templates/rollup.config.js"))?;
 
             let mut package_file = fs::File::create("package.json")?;
             package_file.write_all(
