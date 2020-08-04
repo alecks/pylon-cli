@@ -793,6 +793,7 @@ dependencies = [
  "indicatif",
  "reqwest",
  "serde 1.0.114",
+ "serde_json",
  "structopt",
  "tokio",
 ]
