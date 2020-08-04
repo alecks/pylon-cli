@@ -1,7 +1,6 @@
 use std::collections::VecDeque;
 use std::fs;
 use std::io::{prelude::*, BufReader, Read};
-use std::path::PathBuf;
 use std::process::Command;
 
 use console::style;
@@ -22,10 +21,7 @@ use models::{
 #[structopt(name = "pylon")]
 enum Cli {
     /// Publishes the script. This requires `auth.token`, `publish.bundle` (or `-b <bundle>`) and `publish.script_id`.
-    Publish {
-        #[structopt(short, long, parse(from_os_str))]
-        bundle: Option<PathBuf>,
-    },
+    Publish {},
     /// Creates a new Pylon project.
     Init { name: String },
 }
@@ -92,7 +88,7 @@ struct PackageScripts {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     match Cli::from_args() {
-        Cli::Publish { bundle } => {
+        Cli::Publish {} => {
             let cfg = match Settings::new() {
                 Ok(x) => x,
                 Err(e) => return Err(e.into()),
@@ -121,8 +117,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             let sp = Spinner::new("Publishing script", "Published script", current, total);
 
-            let bundle = bundle.or(Some(cfg.publish.bundle)).unwrap();
-            match fs::File::open(bundle) {
+            match fs::File::open(cfg.publish.bundle) {
                 Ok(f) => {
                     let mut content = String::new();
                     let mut buf_reader = BufReader::new(f);
