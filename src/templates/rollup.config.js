@@ -8,5 +8,5 @@ export default {
             format: "umd",
         },
     ],
-    plugins: [typescript({ lib: ["es6"] })],
+    plugins: [typescript({ lib: ["es2020"], target: "es2020" })],
 };
