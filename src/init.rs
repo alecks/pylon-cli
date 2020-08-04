@@ -12,6 +12,7 @@ const DEFAULT_PACKAGES: &[&str] = &[
     "rollup",
     "@rollup/plugin-typescript",
     "typescript",
+    "tslib",
 ];
 
 #[derive(Serialize)]
