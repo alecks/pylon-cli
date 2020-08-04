@@ -31,15 +31,12 @@ enum Cli {
 }
 
 const API_ENDPOINT: &str = "https://pylon.bot/api";
-const MAIN_FILE_PATH: &str = "main.ts";
-
 const DEFAULT_PACKAGES: &[&str] = &[
     "@pylonbot/runtime",
     "@pylonbot/runtime-discord",
     "rollup",
     "@rollup/plugin-typescript",
 ];
-const ROLLUP_BUILD_COMMAND: &str = "rollup -c";
 
 const SPINNER_TICK: u64 = 80;
 const SPINNER_STRINGS: &[&str] = &["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
@@ -142,7 +139,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 contents: content,
                                 project: Project {
                                     files: vec![File {
-                                        path: MAIN_FILE_PATH.to_owned(),
+                                        path: "main.ts".to_owned(),
                                         content: cfg.publish.main_content,
                                     }],
                                 },
@@ -196,7 +193,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     name,
                     version: "0.1.0".to_owned(),
                     scripts: PackageScripts {
-                        build: ROLLUP_BUILD_COMMAND.to_owned(),
+                        build: "rollup -c".to_owned(),
                     },
                 })
                 .unwrap(),
