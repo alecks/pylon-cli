@@ -1,5 +1,6 @@
 [project]
-script_id = "1234567890" # This can be found at the bottom of Pylon's online editor.
+# This can be found in the editor URL: https://pylon.bot/studio/deployments/YOUR_DEPLOYMENT_ID/editor
+deployment_id = "1234567890"
 
 [publish]
 bundle = "./dist/bundle.js" # The final output file.
