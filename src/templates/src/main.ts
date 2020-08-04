@@ -2,7 +2,7 @@
 /// <reference types="@pylonbot/runtime-discord" />
 
 // Hey! Welcome to your new Pylon bot.
-// Read the Pylon documenration at https://pylon.bot/docs/intro.
+// Read the Pylon documentation at https://pylon.bot/docs/intro.
 // The Pylon CLI documentation is available at https://pylon.alex.lgbt.
 
 // Make sure not to remove the special comments above. These tell TypeScript that you're writing a Pylon script.
