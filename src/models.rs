@@ -61,6 +61,7 @@ pub mod response {
 
     #[derive(Deserialize)]
     pub struct RegistryEntry {
+        pub name: String,
         #[serde(rename = "dist-tags")]
         pub dist_tags: DistTags,
     }
