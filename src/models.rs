@@ -31,7 +31,6 @@ pub mod response {
     pub struct Publish {
         pub id: String,
         pub bot_id: String,
-        pub type_field: i64,
         pub status: i64,
         pub name: String,
         pub config: String,
