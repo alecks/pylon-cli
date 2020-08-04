@@ -67,7 +67,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let sp = Spinner::new("Publishing script", "Published script", 1, total);
             let bundle = bundle.or(Some(cfg.publish.bundle)).unwrap();
 
-            let resp = reqwest::get("https://todo.tls")
+            let resp = reqwest::get("https://todo.tld")
                 .await?
                 .json::<HashMap<String, String>>()
                 .await?;
