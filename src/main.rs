@@ -1,10 +1,10 @@
 use std::collections::HashMap;
-use structopt::StructOpt;
+use std::process::Command;
 use tokio;
 
 use console::style;
-use console::Term;
 use indicatif::{ProgressBar, ProgressStyle};
+use structopt::StructOpt;
 
 mod settings;
 use settings::Settings;
@@ -40,7 +40,7 @@ impl Spinner {
         );
 
         pb.set_prefix(&format!("[{}/{}]", current, total));
-        pb.set_message(&format!("{}", style(committing).blue().bright().bold()));
+        pb.set_message(&format!("{}", style(&committing).blue().bright().bold()));
 
         Self {
             committed: format!("{}", style(committed).green().bright().bold()),
@@ -51,11 +51,15 @@ impl Spinner {
     fn done(&self) {
         self.pb.finish_with_message(&self.committed)
     }
+
+    fn err(&self, message: &str) {
+        self.pb.finish_with_message(&format!("{}", style(message).red().bright().bold()));
+        std::process::exit(1);
+    }
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let term = Term::stdout();
     let cfg = match Settings::new() {
         Ok(x) => x,
         Err(e) => return Err(e.into()),
@@ -64,10 +68,31 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     match Cli::from_args() {
         Cli::Publish { bundle } => {
             let total = 2;
-            let sp = Spinner::new("Publishing script", "Published script", 1, total);
-            let bundle = bundle.or(Some(cfg.publish.bundle)).unwrap();
+            let mut current = 1;
 
-            let resp = reqwest::get("https://todo.tld")
+            let sp = Spinner::new("Running build command", "Built bundle", current, total);
+
+            if cfg.publish.build_command.len() == 0 {
+                sp.err("build_command cannot be empty")
+            }
+
+            let mut build_command: std::collections::VecDeque<&str> =
+                cfg.publish.build_command.split(" ").collect();
+            let ecode = Command::new(build_command.pop_front().unwrap())
+                .args(build_command)
+                .spawn()?
+                .wait()?;
+            if !ecode.success() {
+                sp.err("Build process returned a non-success exit code");
+            };
+
+            sp.done();
+            current += 1;
+
+            let sp = Spinner::new("Publishing script", "Published script", current, total);
+
+            let bundle = bundle.or(Some(cfg.publish.bundle)).unwrap();
+            reqwest::get("https://httpbin.org/ip")
                 .await?
                 .json::<HashMap<String, String>>()
                 .await?;
