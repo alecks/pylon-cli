@@ -54,4 +54,9 @@ pub mod response {
         pub name: String,
         pub icon: String,
     }
+
+    #[derive(Deserialize)]
+    pub struct Error {
+        pub msg: String,
+    }
 }
