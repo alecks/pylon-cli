@@ -49,6 +49,8 @@ pub async fn handle(name: String) -> Result<(), Box<dyn std::error::Error>> {
     templated_file.write_all(include_bytes!("templates/rollup.config.js"))?;
     let mut templated_file = fs::File::create("PylonSecrets.toml")?;
     templated_file.write_all(include_bytes!("templates/PylonSecrets.toml"))?;
+    let mut templated_file = fs::File::create(".gitignore")?;
+    templated_file.write_all(include_bytes!("templates/.gitignore"))?;
 
     let mut package_file = fs::File::create("package.json")?;
     package_file.write_all(
