@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::process::Command;
 use tokio;
 
@@ -53,7 +53,8 @@ impl Spinner {
     }
 
     fn err(&self, message: &str) {
-        self.pb.finish_with_message(&format!("{}", style(message).red().bright().bold()));
+        self.pb
+            .finish_with_message(&format!("{}", style(message).red().bright().bold()));
         std::process::exit(1);
     }
 }
@@ -76,8 +77,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 sp.err("build_command cannot be empty")
             }
 
-            let mut build_command: std::collections::VecDeque<&str> =
-                cfg.publish.build_command.split(" ").collect();
+            let mut build_command: VecDeque<&str> = cfg.publish.build_command.split(" ").collect();
             let ecode = Command::new(build_command.pop_front().unwrap())
                 .args(build_command)
                 .spawn()?
