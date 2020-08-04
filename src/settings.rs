@@ -11,6 +11,7 @@ pub struct Settings {
 pub struct Publish {
     pub script_id: String,
     pub bundle: std::path::PathBuf,
+    pub build_command: String,
 }
 
 #[derive(Deserialize)]
