@@ -27,6 +27,18 @@ struct PackageScripts {
     build: String,
 }
 
+macro_rules! pass_over {
+    ($filename:expr) => {
+        let split: Vec<&str> = $filename.split("/").collect();
+        // Splitting and taking a slice probably isn't the best way to do this.
+        let mut templated_file = fs::File::create(split[1..].join("/"))?;
+        templated_file.write_all(include_bytes!($filename))?;
+    };
+    ($( $filename:expr ),* ) => {
+        $( pass_over!($filename); )*
+    };
+}
+
 pub async fn handle(name: String) -> Result<(), Box<dyn std::error::Error>> {
     let total = 2;
     let mut current = 1;
@@ -40,17 +52,13 @@ pub async fn handle(name: String) -> Result<(), Box<dyn std::error::Error>> {
     fs::create_dir_all(&format!("{}/src", name))?;
     std::env::set_current_dir(&name)?;
 
-    // TODO: Write a macro for this
-    let mut templated_file = fs::File::create("src/main.ts")?;
-    templated_file.write_all(include_bytes!("templates/main.ts"))?;
-    let mut templated_file = fs::File::create("Pylon.toml")?;
-    templated_file.write_all(include_bytes!("templates/Pylon.toml"))?;
-    let mut templated_file = fs::File::create("rollup.config.js")?;
-    templated_file.write_all(include_bytes!("templates/rollup.config.js"))?;
-    let mut templated_file = fs::File::create("PylonSecrets.toml")?;
-    templated_file.write_all(include_bytes!("templates/PylonSecrets.toml"))?;
-    let mut templated_file = fs::File::create(".gitignore")?;
-    templated_file.write_all(include_bytes!("templates/.gitignore"))?;
+    pass_over!(
+        "templates/src/main.ts",
+        "templates/Pylon.toml",
+        "templates/rollup.config.js",
+        "templates/PylonSecrets.toml",
+        "templates/.gitignore"
+    );
 
     let mut package_file = fs::File::create("package.json")?;
     package_file.write_all(
