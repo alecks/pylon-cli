@@ -39,6 +39,7 @@ const DEFAULT_PACKAGES: &[&str] = &[
     "rollup",
     "@rollup/plugin-typescript",
 ];
+const ROLLUP_BUILD_COMMAND: &str = "rollup -c";
 
 const SPINNER_TICK: u64 = 80;
 const SPINNER_STRINGS: &[&str] = &["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
@@ -83,6 +84,12 @@ impl Spinner {
 struct PackageFile {
     name: String,
     version: String,
+    scripts: PackageScripts,
+}
+
+#[derive(Serialize)]
+struct PackageScripts {
+    build: String,
 }
 
 #[tokio::main]
@@ -188,6 +195,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 &serde_json::to_vec(&PackageFile {
                     name,
                     version: "0.1.0".to_owned(),
+                    scripts: PackageScripts {
+                        build: ROLLUP_BUILD_COMMAND.to_owned(),
+                    },
                 })
                 .unwrap(),
             )?;

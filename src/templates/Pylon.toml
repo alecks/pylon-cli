@@ -7,4 +7,4 @@ bundle = "./dist/bundle.js" # The final output file.
 main_content = "// Editing this file will overwrite *all* existing code. Docs: https://pylon.alex.lgbt"
 
 [build]
-command = "sleep 1" # The command to run with the intent of generating the file specified in publish.bundle.
+command = "npm run build" # The command to run with the intent of generating the file specified in publish.bundle.
