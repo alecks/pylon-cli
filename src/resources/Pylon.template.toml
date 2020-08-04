@@ -1,0 +1,10 @@
+[project]
+script_id = "1234567890" # This can be found at the bottom of Pylon's online editor.
+
+[publish]
+bundle = "./dist/bundle.js" # The final output file.
+# The 'fake' content to put in main.ts. This will only be seen in the editor.
+main_content = "// Editing this file will overwrite *all* existing code. Docs: https://pylon.alex.lgbt"
+
+[build]
+command = "sleep 1" # The command to run with the intent of generating the file specified in publish.bundle.
