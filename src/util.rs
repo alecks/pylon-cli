@@ -33,6 +33,7 @@ impl Settings {
     pub fn new() -> Result<Self, ConfigError> {
         let mut s = Config::new();
         s.merge(File::with_name("Pylon").required(false))?;
+        s.merge(File::with_name("PylonSecrets").required(false))?;
         s.merge(Environment::with_prefix("PYLON").separator("__"))?;
         s.try_into()
     }
