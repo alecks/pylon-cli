@@ -69,8 +69,8 @@ pub async fn handle() -> Result<(), Box<dyn std::error::Error>> {
                 .await?;
 
             if !res.status().is_success() {
-                let parsed = res.json::<response::Error>().await?;
-                sp.err(&parsed.msg);
+                let parsed = res.text().await?;
+                sp.err(&parsed);
             } else {
                 sp.done();
 
