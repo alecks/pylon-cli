@@ -60,8 +60,13 @@ pub mod response {
     }
 
     #[derive(Deserialize)]
-    pub struct GuildAdd {
-        pub requires_guild_auth: bool,
-        pub redirect_url: String,
+    pub struct RegistryEntry {
+        #[serde(rename = "dist-tags")]
+        pub dist_tags: DistTags,
+    }
+
+    #[derive(Deserialize)]
+    pub struct DistTags {
+        pub latest: String,
     }
 }
