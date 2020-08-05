@@ -4,3 +4,4 @@
 
 - [Installation](./installation.md)
 - [Setup](./setup.md)
+- [Publishing](./publishing.md)
