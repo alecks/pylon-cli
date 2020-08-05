@@ -1,25 +1,30 @@
-name: Bump version, create new tag and release point
+name: Build, bump tag version and release
+
 on:
   push:
     branches:
       - master
 
 jobs:
-  bump_version:
-    name: Bump version, create tag/release point
+  release:
+    name: Build and release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Build project
+        run: cargo build --release --locked
       - name: Bump version and push tag/create release point
-        id: bump_version
         uses: anothrNick/github-tag-action@1.17.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-      - name: Repository dispatch tag created event
-        uses: peter-evans/repository-dispatch@v1
+        id: bump_version
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v1-release
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          event-type: tag-created
-          client-payload: '{"new_version": "${{ steps.bump_version.outputs.new_tag }}"}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/release/alemanes
+          asset_name: alemanes-linux-amd64
+          tag: ${{ steps.bump_version.outputs.new_tag }}
+          overwrite: true
