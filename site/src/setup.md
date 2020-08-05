@@ -6,7 +6,7 @@ This should show you how to create and configure a Pylon project. It assumes tha
 >
 > The name of the command you'll be using is `pylon`, **not** `pylon-cli`.
 
-## Creating the project
+## Getting your deployment ID and API token
 
 First of all, you'll need an existing Pylon deployment. You probably already have one, but if you don't, it's simple:
 
