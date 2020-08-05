@@ -16,4 +16,6 @@
   cp ./target/release/pylon-cli ~/.pylon/bin/pylon
   ```
 
-> Note that, if you're using the shell script or building from source, you'll have to add `~/.pylon/bin` to your `PATH` variable.
+> ### Note
+>
+> If you're using the shell script or building from source, you'll have to add `~/.pylon/bin` to your `PATH` variable.
