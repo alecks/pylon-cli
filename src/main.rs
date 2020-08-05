@@ -10,7 +10,7 @@ mod publish;
 #[derive(StructOpt)]
 #[structopt(name = "pylon-cli")]
 enum Cli {
-    /// Publishes the script. This requires `auth.token`, `publish.bundle` (or `-b <bundle>`) and `publish.script_id`.
+    /// Publishes the script.
     Publish {},
     /// Creates a new Pylon project.
     Init { name: String },
