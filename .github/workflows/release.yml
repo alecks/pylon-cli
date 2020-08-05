@@ -12,13 +12,13 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            artifact_name: pylon-cli
+            artifact_name: target/release/pylon-cli
             asset_name: pylon-cli-linux
           - os: macos-latest
-            artifact_name: pylon-cli
+            artifact_name: target/release/pylon-cli
             asset_name: pylon-cli-macos
           - os: windows-latest
-            artifact_name: pylon-cli.exe
+            artifact_name: pylon-cli-windows.exe
             asset_name: pylon-cli-windows.exe
     steps:
       - name: Checkout code
@@ -55,6 +55,6 @@ jobs:
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/release/${{ matrix.artifact_name }}
+          file: ${{ matrix.artifact_name }}
           asset_name: ${{ matrix.asset_name }}
           tag: ${{ github.event.release.tag_name }}
