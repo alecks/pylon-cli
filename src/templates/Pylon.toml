@@ -5,7 +5,7 @@ deployment_id = "1234567890"
 [publish]
 bundle = "./dist/bundle.js" # The final output file.
 # The 'fake' content to put in main.ts. This will only be seen in the editor.
-main_content = "// Editing this file will overwrite *all* existing code. Docs: https://pylon.alex.lgbt"
+main_content = "// Editing this file will overwrite *all* existing code. See also: https://pylon.alex.lgbt/publishing__changes_overwritten.html"
 
 [build]
 command = "npm run build" # The command to run with the intent of generating the file specified in publish.bundle.
