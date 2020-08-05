@@ -11,7 +11,8 @@ Darwin) target="macos" ;;
 esac
 
 if [ $(uname -m) != "x86_64" ]; then
-	echo "Unsupported architecture $(uname -m). Only x64 binaries are available."
+	echo "Unsupported architecture $(uname -m); only x64 binaries are available."
+	echo "You may be able to build from source: https://pylon.alex.lgbt/installation.html"
 	exit
 fi
 
