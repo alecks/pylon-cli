@@ -13,8 +13,8 @@ Your bot's code is located in the `src` folder. Make sure, however, that you're 
 If you're using an editor like [Visual Studio Code](https://code.visualstudio.com), you'll have instant linting and autocompletions. This is the result of having comments like these:
 
 ```ts
-/// <reference types="@pylonbot/runtime" \>
-/// <reference types="@pylonbot/runtime-discord />
+/// <reference types="@pylonbot/runtime" />
+/// <reference types="@pylonbot/runtime-discord" />
 ```
 
 They tell TypeScript that you're writing a Pylon project. You only need to keep them in `main.ts`; the rest of the project should inherit them.
