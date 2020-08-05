@@ -19,3 +19,5 @@
 > ### Note
 >
 > If you're using the shell script or building from source, you'll have to add `~/.pylon/bin` to your `PATH` variable.
+
+Assuming that installation was successful, running `pylon --help` should output a neat help message.
