@@ -24,3 +24,25 @@ Once you have the editor open, what you want is the ID in the URL. This is your 
 If you're still lost, here's a video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ISXK-3umZ1w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Creating a project
+
+That's the last you'll see of the online editor! Open up your terminal again. The CLI has a handy `init` subcommand:
+
+```console
+pylon init my-project
+```
+
+This will create a project with a starter template, installing all required dependencies. Make sure to install [npm](https://npmjs.com) if you haven't already. You can really use whatever editor you want, but [Visual Studio Code](https://code.visualstudio.com) is recommended; it has great TypeScript integration.
+
+## Configuring your project
+
+You need to configure your project before publishing.
+
+### Pylon.toml
+
+Now you have a starter project, you'll have to put the values you got from the editor in the config. You'll find a file called `Pylon.toml`; open this up! The only thing you need to edit here is the `deployment_id` value. Just replace it with what you got in the URL.
+
+### PylonSecrets.toml
+
+The second config file is `PylonSecrets.toml`. This is where you'll keep your secret, since leaking it is giving people access to your entire account. Opening it up, you'll see the `token` option; replace this with the token you got from the developer tools.
