@@ -1,12 +1,12 @@
 name: Build and upload executables to release
 
 on:
-  repository_dispatch:
-    types: [tag-created]
+  release:
+    types: [published]
 
 jobs:
   release:
-    name: Build and Release
+    name: Build and release
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -17,9 +17,9 @@ jobs:
           - os: macos-latest
             artifact_name: pylon-cli
             asset_name: pylon-cli-macos
-          - os: macos-latest
-            artifact_name: pylon-cli
-            asset_name: pylon-cli-windows  
+          - os: windows-latest
+            artifact_name: pylon-cli.exe
+            asset_name: pylon-cli-windows.exe
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,4 +31,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/release/${{ matrix.artifact_name }}
           asset_name: ${{ matrix.asset_name }}
-          tag: ${{ github.event.client_payload.new_version }}
+          tag: ${{ github.event.release.tag_name }}
