@@ -8,7 +8,7 @@ mod publish;
 
 /// Community CLI tool for Pylon.bot. https://pylon.alex.lgbt
 #[derive(StructOpt)]
-#[structopt(name = "pylon")]
+#[structopt(name = "pylon-cli")]
 enum Cli {
     /// Publishes the script. This requires `auth.token`, `publish.bundle` (or `-b <bundle>`) and `publish.script_id`.
     Publish {},
