@@ -4,12 +4,9 @@
 
 - Shell (macOS, Linux, WSL, other UNIX-like systems):
   ```console
-  curl -fsSL https://pylon.alex.lgbt/i/install.sh | sh
+  curl -fsSL https://pylon.alex.lgbt/install.sh | sh
   ```
-- Powershell (Windows)
-  ```ps
-  iwr https://pylon.alex.lgbt/i/install.ps1 -useb | iex
-  ```
+- [Windows Installer](about:blank)
 - Cargo (most platforms, build from source)
   ```console
   git clone https://github.com/fjah/pylon-cli
