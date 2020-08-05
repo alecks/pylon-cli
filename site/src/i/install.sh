@@ -18,7 +18,7 @@ fi
 if [ $# -eq 0 ]; then
 	pylon_asset_path=$(
 		command curl -sSf https://github.com/fjah/pylon-cli/releases |
-			command grep -o "/fjah/pylon-cli/releases/download/.*/pylon-cli-${target}\\" |
+			command grep -o "/fjah/pylon-cli/releases/download/.*/pylon-cli-${target}" |
 			command head -n 1
 	)
 	if [ ! "$pylon_asset_path" ]; then exit 1; fi
