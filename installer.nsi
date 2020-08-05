@@ -10,6 +10,7 @@ Section
     CreateDirectory $INSTDIR\bin
     SetOutPath $INSTDIR\bin
     File target\release\pylon-cli.exe
+    Rename $INSTDIR\bin\pylon-cli.exe $INSTDIR\bin\pylon.exe
 
     EnVar::AddValue "PATH" "$INSTDIR\bin"
     Pop $0
