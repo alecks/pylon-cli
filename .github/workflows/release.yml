@@ -13,10 +13,13 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: pylon-cli
-            asset_name: pylon-cli-linux-amd64
+            asset_name: pylon-cli-linux
           - os: macos-latest
             artifact_name: pylon-cli
-            asset_name: pylon-cli-macos-amd64
+            asset_name: pylon-cli-macos
+          - os: macos-latest
+            artifact_name: pylon-cli
+            asset_name: pylon-cli-windows  
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
