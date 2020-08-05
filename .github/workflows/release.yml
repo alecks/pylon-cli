@@ -18,7 +18,7 @@ jobs:
             artifact_name: pylon-cli
             asset_name: pylon-cli-macos
           - os: windows-latest
-            artifact_name: pylon-cli
+            artifact_name: pylon-cli.exe
             asset_name: pylon-cli-windows.exe
     steps:
       - name: Checkout code
