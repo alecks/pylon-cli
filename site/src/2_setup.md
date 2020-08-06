@@ -45,4 +45,4 @@ Now you have a starter project, you'll have to put the values you got from the e
 
 ### PylonSecrets.toml
 
-The second config file is `PylonSecrets.toml`. This is where you'll keep your secret, since leaking it is giving people access to your entire account. Opening it up, you'll see the `token` option; replace this with the token you got from the developer tools.
+The second config file is `PylonSecrets.toml`. This is where you'll keep your token, since leaking it is giving people access to your entire account. Opening it up, you'll see the `token` option; replace this with what you got from the developer tools.
