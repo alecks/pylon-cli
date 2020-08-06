@@ -33,7 +33,7 @@ pylon init my-project
 
 This will create a project with a starter template, installing all required dependencies. Make sure to install [npm](https://npmjs.com) if you haven't already. You can really use whatever editor you want, but [Visual Studio Code](https://code.visualstudio.com) is recommended; it has great TypeScript integration.
 
-> If you're getting errors out of nowhere, it's _very_ likely that you have an out-of-date version of the SDK typings. This is because the recent updates to the typings haven't been published to npm. It's an easy solution, though: **download the newest typings from [here](https://pylon.bot/runtime-typings/0.0.1/pylon-runtime.d.ts) and [here](https://pylon.bot/runtime-typings/0.0.1/pylon-runtime-discord.d.ts). Once you've got them, replace the files in `node_modules/@pylonbot/runtime` and `node_modules/@pylonbot/runtime-discord` respectively.**
+As of now, the npm packages for SDK typings are outdated; don't worry if you're flooded with errors! You should download the newest typings from [here](https://pylon.bot/runtime-typings/0.0.1/pylon-runtime.d.ts) and [here](https://pylon.bot/runtime-typings/0.0.1/pylon-runtime-discord.d.ts). Once you've got them, replace the files in `node_modules/@pylonbot/runtime` and `node_modules/@pylonbot/runtime-discord` respectively.
 
 ## Configuring your project
 
