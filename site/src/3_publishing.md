@@ -1,6 +1,6 @@
 # Publishing
 
-Once everything's set up, you can start publishing with the CLI. Make sure you're in the directory of a properly-configured project before trying to publish.
+Once everything's set up, you can start publishing with the CLI. Make sure you're in the directory of a properly configured project before trying to publish.
 
 ## Editing the code
 
