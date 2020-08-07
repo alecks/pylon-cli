@@ -20,3 +20,5 @@ They tell TypeScript that you're writing a Pylon project. You only need to keep 
 ## Saving and publishing your code
 
 Once you're done editing, you can run `pylon publish`. This will build your project into a bundle - see `dist/bundle.js` - and send it off to Pylon. Error messages will be shown too, if you don't have a fancy code editor.
+
+You'll also notice that you're connected to the _workbench_; this is just a live feed of logs and errors. You can disable this with `--no-ws` if you're, for example, using the CLI for a CI workflow.
