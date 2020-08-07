@@ -930,6 +930,7 @@ version = "0.1.0"
 dependencies = [
  "config",
  "console",
+ "futures-channel",
  "futures-util",
  "indicatif",
  "reqwest",
@@ -938,6 +939,7 @@ dependencies = [
  "structopt",
  "tokio",
  "tokio-tungstenite",
+ "url",
 ]
 
 [[package]]
