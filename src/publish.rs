@@ -9,7 +9,7 @@ use console::style;
 use crate::models::request::{File, Project, Publish, Script};
 use crate::util::{Settings, Spinner};
 
-use futures_util::{pin_mut, StreamExt};
+use futures_util::StreamExt;
 use tokio_tungstenite::connect_async;
 
 const API_ENDPOINT: &str = "https://pylon.bot/api";
@@ -106,7 +106,6 @@ pub async fn handle(no_ws: bool) -> Result<(), Box<dyn std::error::Error>> {
                         })
                     };
 
-                    pin_mut!(ws_to_stdout);
                     ws_to_stdout.await;
                 }
             }
