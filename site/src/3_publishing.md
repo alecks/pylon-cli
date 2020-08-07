@@ -4,7 +4,7 @@ Once everything's set up, you can start publishing with the CLI. Make sure you'r
 
 ## Editing the code
 
-> All changes made with the CLI will overwrite _all_ changes made with the online editor, and vice-versa. See also: [Why are my changes overwritten?](./publishing__changes_overwritten.md).
+> All changes made with the CLI will overwrite _all_ changes made with the online editor, and vice-versa. See also: [Why are my changes overwritten?](./3.1_changes_overwritten.md).
 
 Your bot's code is located in the `src` folder. Make sure, however, that you're in the root of the project; the CLI will look for `Pylon.toml` and `PylonSecrets.toml` in the _current_ directory. Open up `src/main.ts` and start editing!
 
