@@ -1,6 +1,6 @@
 # Summary
 
-[Pylon CLI](./pylon_cli.md)
+[Intro](./intro.md)
 
 - [Installation](./1_installation.md)
 - [Setup](./2_setup.md)
