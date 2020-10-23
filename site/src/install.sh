@@ -9,7 +9,7 @@ case $(uname -s) in
 Darwin) target="macos" ;;
 *) target="linux" ;;
 esac
-https://github.com/alecks/pylon-cli/pull/1
+
 if [ $(uname -m) != "x86_64" ]; then
 	echo "Unsupported architecture $(uname -m); only x64 binaries are available."
 	echo "You may be able to build from source: https://pylon.alex.lgbt/installation.html"
