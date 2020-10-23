@@ -2,14 +2,14 @@
 
 `pylon-cli` provides install scripts for most platforms.
 
-- [Windows Installer](https://github.com/fjah/pylon-cli/releases); see the assets in the latest release.
+- [Windows Installer](https://github.com/alecks/pylon-cli/releases); see the assets in the latest release.
 - Shell (macOS, Linux, WSL, other UNIX-like systems):
   ```console
   curl -fsSL https://pylon.alex.lgbt/install.sh | sh
   ```
 - Cargo (most platforms, build from source)
   ```console
-  git clone https://github.com/fjah/pylon-cli
+  git clone https://github.com/alecks/pylon-cli
   cd pylon-cli
   cargo build --release
   mkdir -p ~/.pylon/bin
