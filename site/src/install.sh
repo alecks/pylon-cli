@@ -19,13 +19,13 @@ fi
 if [ $# -eq 0 ]; then
 	pylon_asset_path=$(
 		command curl -sSf https://github.com/fjah/pylon-cli/releases |
-			command grep -o "/alecks/pylon-cli/releases/download/.*/pylon-cli-${target}" |
+			command grep -o "/fjah/pylon-cli/releases/download/.*/pylon-cli-${target}" |
 			command head -n 1
 	)
 	if [ ! "$pylon_asset_path" ]; then exit 1; fi
 	pylon_uri="https://github.com${pylon_asset_path}"
 else
-	pylon_uri="https://github.com/alecks/pylon-cli/releases/download/${1}/pylon-cli-${target}"
+	pylon_uri="https://github.com/fjah/pylon-cli/releases/download/${1}/pylon-cli-${target}"
 fi
 
 pylon_install="${PYLON_INSTALL:-$HOME/.pylon}"
